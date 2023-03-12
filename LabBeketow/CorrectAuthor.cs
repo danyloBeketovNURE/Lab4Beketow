@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LabBeketow
 {
@@ -35,6 +36,10 @@ namespace LabBeketow
                     item.authorName = author.initials;
             }
             Dispose();
+        }
+        private void CorrectAuthor_Load(object sender, EventArgs e)
+        {
+            textBox1.Text = author.initials;
         }
     }
 }

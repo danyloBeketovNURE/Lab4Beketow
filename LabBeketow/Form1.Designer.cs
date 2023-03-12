@@ -30,7 +30,7 @@
         {
             this.dataGridAuthors = new System.Windows.Forms.DataGridView();
             this.dataGridPartBooks = new System.Windows.Forms.DataGridView();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.allBooksGrid = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,9 +45,16 @@
             this.changeBook = new System.Windows.Forms.Button();
             this.deleteBook = new System.Windows.Forms.Button();
             this.addBook = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.SortBooks = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.LoadButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAuthors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPartBooks)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.allBooksGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -75,15 +82,15 @@
             this.dataGridPartBooks.Size = new System.Drawing.Size(306, 434);
             this.dataGridPartBooks.TabIndex = 1;
             // 
-            // dataGridView3
+            // allBooksGrid
             // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(846, 77);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.RowHeadersWidth = 51;
-            this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(306, 434);
-            this.dataGridView3.TabIndex = 2;
+            this.allBooksGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.allBooksGrid.Location = new System.Drawing.Point(846, 77);
+            this.allBooksGrid.Name = "allBooksGrid";
+            this.allBooksGrid.RowHeadersWidth = 51;
+            this.allBooksGrid.RowTemplate.Height = 24;
+            this.allBooksGrid.Size = new System.Drawing.Size(320, 305);
+            this.allBooksGrid.TabIndex = 2;
             // 
             // label1
             // 
@@ -122,7 +129,7 @@
             // dataGridView4
             // 
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(1170, 77);
+            this.dataGridView4.Location = new System.Drawing.Point(1187, 77);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowHeadersWidth = 51;
             this.dataGridView4.RowTemplate.Height = 24;
@@ -132,7 +139,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1167, 58);
+            this.label4.Location = new System.Drawing.Point(1184, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 16);
             this.label4.TabIndex = 8;
@@ -218,11 +225,88 @@
             this.addBook.UseVisualStyleBackColor = true;
             this.addBook.Click += new System.EventHandler(this.addBook_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(1057, 403);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(109, 20);
+            this.checkBox1.TabIndex = 10;
+            this.checkBox1.Text = "By publishing";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(1057, 429);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(85, 20);
+            this.checkBox2.TabIndex = 11;
+            this.checkBox2.Text = "By author";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(1057, 455);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(82, 20);
+            this.checkBox3.TabIndex = 12;
+            this.checkBox3.Text = "By name";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(1057, 481);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(75, 20);
+            this.checkBox4.TabIndex = 13;
+            this.checkBox4.Text = "By year";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // SortBooks
+            // 
+            this.SortBooks.Location = new System.Drawing.Point(846, 399);
+            this.SortBooks.Name = "SortBooks";
+            this.SortBooks.Size = new System.Drawing.Size(205, 112);
+            this.SortBooks.TabIndex = 14;
+            this.SortBooks.Text = "Sort";
+            this.SortBooks.UseVisualStyleBackColor = true;
+            this.SortBooks.Click += new System.EventHandler(this.SortBooks_Click);
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Location = new System.Drawing.Point(18, 520);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(809, 137);
+            this.SaveButton.TabIndex = 15;
+            this.SaveButton.Text = "Save all";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // LoadButton
+            // 
+            this.LoadButton.Location = new System.Drawing.Point(846, 517);
+            this.LoadButton.Name = "LoadButton";
+            this.LoadButton.Size = new System.Drawing.Size(647, 140);
+            this.LoadButton.TabIndex = 16;
+            this.LoadButton.Text = "Load from disc";
+            this.LoadButton.UseVisualStyleBackColor = true;
+            this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1466, 551);
+            this.ClientSize = new System.Drawing.Size(1508, 669);
+            this.Controls.Add(this.LoadButton);
+            this.Controls.Add(this.SaveButton);
+            this.Controls.Add(this.SortBooks);
+            this.Controls.Add(this.checkBox4);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.dataGridPartBooks);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.textBox1);
@@ -233,13 +317,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView3);
+            this.Controls.Add(this.allBooksGrid);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAuthors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPartBooks)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.allBooksGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -252,7 +336,7 @@
 
         private System.Windows.Forms.DataGridView dataGridAuthors;
         private System.Windows.Forms.DataGridView dataGridPartBooks;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView allBooksGrid;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -267,6 +351,13 @@
         private System.Windows.Forms.Button changeBook;
         private System.Windows.Forms.Button deleteBook;
         private System.Windows.Forms.Button addBook;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Button SortBooks;
+        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button LoadButton;
     }
 }
 

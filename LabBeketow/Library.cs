@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.Text.Json;
 
 namespace LabBeketow
 {
     public class Library
     {
+        private const string filePath = "SavedLibrary.json";
+
         private List<Author> authors = new List<Author>();
+        //////////////////////////////////////////////////////
+        private List<String> pubHouses = new List<String>();//
+        //////////////////////////////////////////////////////
         public IEnumerable<Author> GetAllAuthors()
         {
             foreach (var item in authors)
@@ -18,6 +25,20 @@ namespace LabBeketow
                 yield return item;
             }
         }
+         public List<Book> GetAllBooks()                                  
+        {                                                                     
+            List<Book> books = new List<Book>();                        
+            foreach (Author item in authors)                            
+            {
+                List<Book> subBooks = new List<Book>();                  
+                subBooks = item.GetBooks().ToList();                       
+                foreach (Book book in subBooks)                          
+                {                                                             
+                    books.Add(book);                                      
+                }
+            }                                                                 
+            return books;                                                   
+        } 
         public void addAuthor(Author registredAuthor)
         {
             if (authors.Any(x => x.id.Equals(registredAuthor.id)))
@@ -63,5 +84,35 @@ namespace LabBeketow
             return;
         }
 
+        public void LoadData()
+        {
+            authors.Clear();
+            using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                try
+                {
+                    List<AuthorDTO> loadedAuthors = JsonSerializer.Deserialize<List<AuthorDTO>>(stream);
+                    foreach (AuthorDTO authorDTO in loadedAuthors)
+                        authors.Add(authorDTO.ToAuthor());
+                }
+                catch
+                {
+                    MessageBox.Show("Incorrect file");
+                }
+            }
+        }
+        public void Save()
+        {
+            List<AuthorDTO> authorDTOs = new List<AuthorDTO>();
+            foreach (Author item in authors)
+            {
+                AuthorDTO DTO = item.ToDTO();
+                authorDTOs.Add(DTO);
+            }
+            using (FileStream stream = new FileStream(filePath, FileMode.Create))
+            {
+                JsonSerializer.Serialize<List<AuthorDTO>>(stream, authorDTOs);
+            }
+        }
     }
 }

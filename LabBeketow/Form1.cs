@@ -37,15 +37,15 @@ namespace LabBeketow
             //workerDataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //workerDataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
-        //private void UpdateAllWorkerDataSource(List<Worker> AllWorkers)
-        //{
-        //    AllWorkersDataGridView.DataSource = AllWorkers;
-        //    //AllWorkersDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-        //    //AllWorkersDataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-        //    //AllWorkersDataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-        //    //AllWorkersDataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-        //    //AllWorkersDataGridView.CurrentCell = null;
-        //}
+        private void UpdateThirdGridView(List<Book> allBooks)
+        {
+            allBooksGrid.DataSource = allBooks;
+            //AllWorkersDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //AllWorkersDataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //AllWorkersDataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            //AllWorkersDataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //AllWorkersDataGridView.CurrentCell = null;
+        }
         private Author GetSelectedAuthor()
         {
             if (dataGridAuthors.SelectedRows.Count == 0)
@@ -78,7 +78,7 @@ namespace LabBeketow
                 UpdateFirstGridView(library.GetAllAuthors().ToList());
                 dataGridAuthors.CurrentCell = null;
                 dataGridPartBooks.DataSource = null;
-                //UpdateAllWorkerDataSource(company.GetAllWorkers().ToList());
+                UpdateThirdGridView(library.GetAllBooks().ToList());
             }
             catch (Exception exception)
             {
@@ -100,7 +100,7 @@ namespace LabBeketow
                 UpdateFirstGridView(library.GetAllAuthors().ToList());
                 dataGridAuthors.CurrentCell = null;
                 dataGridPartBooks.DataSource = null;
-                //UpdateAllWorkerDataSource(company.GetAllWorkers().ToList());
+                UpdateThirdGridView(library.GetAllBooks().ToList());
             }
             catch (Exception exception)
             {
@@ -119,7 +119,7 @@ namespace LabBeketow
                 CreateBook createBookForm = new CreateBook(curentAuthor);
                 createBookForm.ShowDialog();
                 UpdateSecondGridView(curentAuthor.GetBooks().ToList());
-                //UpdateAllWorkerDataSource(company.GetAllWorkers().ToList());
+                UpdateThirdGridView(library.GetAllBooks().ToList());
             }
             catch (Exception exception)
             {
@@ -141,7 +141,7 @@ namespace LabBeketow
 
                 library.deleteSelectedBook(curentAuthor, curentBook);
                 UpdateSecondGridView(curentAuthor.GetBooks().ToList());
-                //UpdateAllWorkerDataSource(company.GetAllWorkers().ToList());
+                UpdateThirdGridView(library.GetAllBooks().ToList());
             }
             catch (Exception exception)
             {
@@ -164,12 +164,53 @@ namespace LabBeketow
                 ChangeBook changeBookForm = new ChangeBook(library, curentBook);
                 changeBookForm.ShowDialog();
                 UpdateSecondGridView(curentAuthor.GetBooks().ToList());
-                //UpdateAllWorkerDataSource(company.GetAllWorkers().ToList());
+                UpdateThirdGridView(library.GetAllBooks().ToList());
             }
             catch (Exception exception)
             {
                 MessageBox.Show("SORRY something do wrong");
             }
+        }
+
+        private void SortBooks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!checkBox1.Checked && !checkBox2.Checked && !checkBox3.Checked && !checkBox4.Checked)
+                {
+                    MessageBox.Show("Please select type of sorting!");
+                    return;
+                }
+                List<Book> books = new List<Book>();
+
+                if (checkBox1.Checked && !checkBox2.Checked && !checkBox3.Checked && !checkBox4.Checked)
+                    books = library.GetAllBooks().OrderBy(x => x.pubHouse).ToList();
+                else if (checkBox2.Checked && !checkBox1.Checked && !checkBox3.Checked && !checkBox4.Checked)
+                    books = library.GetAllBooks().OrderBy(x => x.authorName).ToList();
+                else if (checkBox3.Checked && !checkBox2.Checked && !checkBox1.Checked && !checkBox4.Checked)
+                    books = library.GetAllBooks().OrderBy(x => x.bookName).ToList();
+                else if (checkBox4.Checked && !checkBox2.Checked && !checkBox3.Checked && !checkBox1.Checked)
+                    books = library.GetAllBooks().OrderBy(x => x.Year).ToList();
+                else { MessageBox.Show("SORRY something do wrong"); }
+                
+
+                UpdateThirdGridView(books);
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            library.Save();
+        }
+
+        private void LoadButton_Click(object sender, EventArgs e)
+        {
+            library.LoadData();
+            dataGridAuthors.CurrentCell = null;
         }
     }
 }
