@@ -46,6 +46,9 @@ namespace LabBeketow
             //AllWorkersDataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //AllWorkersDataGridView.CurrentCell = null;
         }
+        private void UpdateFourthGridView() {
+            dataGridView4.DataSource = library.getBUB().ToList();
+        }
         private Author GetSelectedAuthor()
         {
             if (dataGridAuthors.SelectedRows.Count == 0)
@@ -57,6 +60,12 @@ namespace LabBeketow
             if (dataGridPartBooks.SelectedRows.Count == 0)
                 return null;
             return (Book)dataGridPartBooks.SelectedRows[0].DataBoundItem;
+        }
+        private PUBs GetSelectedPub()
+        {
+            if (dataGridView4.SelectedRows.Count == 0)
+                return null;
+            return (PUBs)dataGridView4.SelectedRows[0].DataBoundItem;
         }
 
         private void AuthorRegister_Click(object sender, EventArgs e)
@@ -116,7 +125,7 @@ namespace LabBeketow
                 if (curentAuthor == null)
                     return;
 
-                CreateBook createBookForm = new CreateBook(curentAuthor);
+                CreateBook createBookForm = new CreateBook(curentAuthor, library);
                 createBookForm.ShowDialog();
                 UpdateSecondGridView(curentAuthor.GetBooks().ToList());
                 UpdateThirdGridView(library.GetAllBooks().ToList());
@@ -211,6 +220,39 @@ namespace LabBeketow
         {
             library.LoadData();
             dataGridAuthors.CurrentCell = null;
+            UpdateFirstGridView(library.GetAllAuthors().ToList());
+            UpdateFourthGridView();
+            UpdateThirdGridView(library.GetAllBooks().ToList());
+        }
+
+        private void dataGridAuthors_CurrentCellChanged(object sender, EventArgs e)
+        {
+            Author author = GetSelectedAuthor();
+            if (author == null) return;
+            UpdateSecondGridView(author.GetBooks().ToList());
+        }
+
+        private void createPUB_Click(object sender, EventArgs e)
+        {
+            library.addPUB(textBox2.Text);
+            UpdateFourthGridView();
+        }
+
+        private void deletePUB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PUBs curentPUB = GetSelectedPub();
+                if (curentPUB == null)
+                    return;
+
+                library.deletePUB(curentPUB);
+                UpdateFourthGridView();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }

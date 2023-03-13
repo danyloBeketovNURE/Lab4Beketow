@@ -14,13 +14,15 @@ namespace LabBeketow
     public partial class CreateBook : Form
     {
         private Author author = new Author();
+        private Library libr = new Library();
         public CreateBook()
         {
             InitializeComponent();
         }
-        public CreateBook(Author author)
+        public CreateBook(Author author, Library libr)
         {
             this.author = author;
+            this.libr = libr;
             InitializeComponent();
         }
 
@@ -28,14 +30,26 @@ namespace LabBeketow
         {
             try
             {
+                if (comboBox1.SelectedItem == null)
+                    throw new Exception();
+
                 int year = int.Parse(textBox2.Text);
-                Book newBook = new Book(textBox1.Text, "parapapa", year, author.initials);
+                Book newBook = new Book(textBox1.Text, new PUBs(comboBox1.SelectedItem.ToString()), year, author.initials);
                 author.AddBook(newBook);
                 Dispose();
             }
             catch
             {
                 MessageBox.Show("SORRY something do wrong");
+            }
+        }
+
+        private void CreateBook_Load(object sender, EventArgs e)
+        {
+            List<PUBs> pubs = libr.getBUB().ToList();
+            foreach (var item in pubs)
+            {
+                comboBox1.Items.Add(item.name);
             }
         }
     }

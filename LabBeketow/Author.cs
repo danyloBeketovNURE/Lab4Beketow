@@ -23,7 +23,10 @@ namespace LabBeketow
         {
             this.id = id;
             this.initials = initials;
-            books.AddRange(list);
+            foreach (Book book in list) 
+            {
+                books.Add(book);
+            }
         }
         public IEnumerable<Book> GetBooks()
         {

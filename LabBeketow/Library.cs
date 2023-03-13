@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Text.Json;
+using System.Runtime.CompilerServices;
 
 namespace LabBeketow
 {
     public class Library
     {
-        private const string filePath = "SavedLibrary.json";
+        private const string filePathAuth = "Auth.json";
+        private const string filePathPUBs = "PUBs.json";
 
         private List<Author> authors = new List<Author>();
         //////////////////////////////////////////////////////
-        private List<String> pubHouses = new List<String>();//
+        private List<PUBs> pubHouses = new List<PUBs>();//
         //////////////////////////////////////////////////////
         public IEnumerable<Author> GetAllAuthors()
         {
@@ -25,6 +27,24 @@ namespace LabBeketow
                 yield return item;
             }
         }
+        public void addPUB(string _name)
+        {
+            PUBs pub = new PUBs();
+            pub.name = _name;
+            pubHouses.Add(pub);
+        }
+        public void deletePUB(PUBs PUB)
+        {
+            pubHouses.Remove(PUB);
+        }
+        public IEnumerable<PUBs> getBUB()
+        {
+            foreach (var item in pubHouses)
+            {
+                yield return item;
+            }
+        }
+    
          public List<Book> GetAllBooks()                                  
         {                                                                     
             List<Book> books = new List<Book>();                        
@@ -87,7 +107,7 @@ namespace LabBeketow
         public void LoadData()
         {
             authors.Clear();
-            using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate))
+            using (FileStream stream = new FileStream(filePathAuth, FileMode.OpenOrCreate))
             {
                 try
                 {
@@ -96,6 +116,18 @@ namespace LabBeketow
                         authors.Add(authorDTO.ToAuthor());
                 }
                 catch
+                {
+                    MessageBox.Show("Incorrect file");
+                }
+            }
+            using (FileStream stream = new FileStream(filePathPUBs, FileMode.OpenOrCreate))
+            {
+                pubHouses.Clear();
+                try
+                {
+                    pubHouses = JsonSerializer.Deserialize<List<PUBs>>(stream);
+                }
+                catch (Exception e)
                 {
                     MessageBox.Show("Incorrect file");
                 }
@@ -109,9 +141,13 @@ namespace LabBeketow
                 AuthorDTO DTO = item.ToDTO();
                 authorDTOs.Add(DTO);
             }
-            using (FileStream stream = new FileStream(filePath, FileMode.Create))
+            using (FileStream stream = new FileStream(filePathAuth, FileMode.Create))
             {
                 JsonSerializer.Serialize<List<AuthorDTO>>(stream, authorDTOs);
+            }
+            using (FileStream stream = new FileStream(filePathPUBs, FileMode.Create))
+            {
+                JsonSerializer.Serialize<List<PUBs>>(stream, pubHouses);
             }
         }
     }

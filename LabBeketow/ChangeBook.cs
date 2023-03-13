@@ -31,7 +31,6 @@ namespace LabBeketow
             {
                 book.Year = int.Parse(textBox2.Text);
                 book.bookName = textBox1.Text;
-                book.pubHouse = textBox3.Text;
                 Dispose();
             }
             catch
@@ -39,11 +38,11 @@ namespace LabBeketow
                 MessageBox.Show("SORRY something do wrong");
             }
         }
-        private void ChangeBook_Load(object sender, EventArgs e)
+
+        private void ChangeBook_Load_1(object sender, EventArgs e)
         {
             textBox1.Text = book.bookName;
             textBox2.Text = book.Year.ToString();
-            textBox3.Text = book.pubHouse;
         }
     }
 }

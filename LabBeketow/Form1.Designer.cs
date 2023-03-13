@@ -52,6 +52,9 @@
             this.SortBooks = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.LoadButton = new System.Windows.Forms.Button();
+            this.createPUB = new System.Windows.Forms.Button();
+            this.deletePUB = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAuthors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPartBooks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.allBooksGrid)).BeginInit();
@@ -65,17 +68,20 @@
             this.dataGridAuthors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridAuthors.Location = new System.Drawing.Point(110, 77);
             this.dataGridAuthors.Name = "dataGridAuthors";
+            this.dataGridAuthors.ReadOnly = true;
             this.dataGridAuthors.RowHeadersWidth = 51;
             this.dataGridAuthors.RowTemplate.Height = 24;
             this.dataGridAuthors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridAuthors.Size = new System.Drawing.Size(306, 434);
             this.dataGridAuthors.TabIndex = 0;
+            this.dataGridAuthors.CurrentCellChanged += new System.EventHandler(this.dataGridAuthors_CurrentCellChanged);
             // 
             // dataGridPartBooks
             // 
             this.dataGridPartBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPartBooks.Location = new System.Drawing.Point(521, 77);
             this.dataGridPartBooks.Name = "dataGridPartBooks";
+            this.dataGridPartBooks.ReadOnly = true;
             this.dataGridPartBooks.RowHeadersWidth = 51;
             this.dataGridPartBooks.RowTemplate.Height = 24;
             this.dataGridPartBooks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -87,6 +93,7 @@
             this.allBooksGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.allBooksGrid.Location = new System.Drawing.Point(846, 77);
             this.allBooksGrid.Name = "allBooksGrid";
+            this.allBooksGrid.ReadOnly = true;
             this.allBooksGrid.RowHeadersWidth = 51;
             this.allBooksGrid.RowTemplate.Height = 24;
             this.allBooksGrid.Size = new System.Drawing.Size(320, 305);
@@ -131,9 +138,11 @@
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4.Location = new System.Drawing.Point(1187, 77);
             this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.ReadOnly = true;
             this.dataGridView4.RowHeadersWidth = 51;
             this.dataGridView4.RowTemplate.Height = 24;
-            this.dataGridView4.Size = new System.Drawing.Size(306, 434);
+            this.dataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView4.Size = new System.Drawing.Size(306, 305);
             this.dataGridView4.TabIndex = 7;
             // 
             // label4
@@ -295,11 +304,41 @@
             this.LoadButton.UseVisualStyleBackColor = true;
             this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
             // 
+            // createPUB
+            // 
+            this.createPUB.Location = new System.Drawing.Point(1187, 431);
+            this.createPUB.Name = "createPUB";
+            this.createPUB.Size = new System.Drawing.Size(151, 80);
+            this.createPUB.TabIndex = 17;
+            this.createPUB.Text = "Create house";
+            this.createPUB.UseVisualStyleBackColor = true;
+            this.createPUB.Click += new System.EventHandler(this.createPUB_Click);
+            // 
+            // deletePUB
+            // 
+            this.deletePUB.Location = new System.Drawing.Point(1344, 431);
+            this.deletePUB.Name = "deletePUB";
+            this.deletePUB.Size = new System.Drawing.Size(149, 80);
+            this.deletePUB.TabIndex = 18;
+            this.deletePUB.Text = "Delete house";
+            this.deletePUB.UseVisualStyleBackColor = true;
+            this.deletePUB.Click += new System.EventHandler(this.deletePUB_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(1187, 403);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(306, 22);
+            this.textBox2.TabIndex = 19;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1508, 669);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.deletePUB);
+            this.Controls.Add(this.createPUB);
             this.Controls.Add(this.LoadButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.SortBooks);
@@ -358,6 +397,9 @@
         private System.Windows.Forms.Button SortBooks;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button LoadButton;
+        private System.Windows.Forms.Button createPUB;
+        private System.Windows.Forms.Button deletePUB;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

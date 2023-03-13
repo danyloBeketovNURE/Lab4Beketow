@@ -37,7 +37,8 @@ namespace LabBeketow
             }
             Dispose();
         }
-        private void CorrectAuthor_Load(object sender, EventArgs e)
+
+        private void CorrectAuthor_Load_1(object sender, EventArgs e)
         {
             textBox1.Text = author.initials;
         }

@@ -9,7 +9,7 @@ namespace LabBeketow
     public class Book
     {
         public string bookName { get; set; }
-        public string pubHouse { get; set; }
+        public PUBs pubHouse { get; set; }
         private int _year;
         public int Year
         {
@@ -25,7 +25,7 @@ namespace LabBeketow
         public string authorName { get; set; }
         public string ID { get; set; } = Guid.NewGuid().ToString();
         public Book() { }
-        public Book(string bookName,string pubHouse, int year, string authorName)
+        public Book(string bookName,PUBs pubHouse, int year, string authorName)
         {
             this.bookName = bookName;
             this.pubHouse = pubHouse;

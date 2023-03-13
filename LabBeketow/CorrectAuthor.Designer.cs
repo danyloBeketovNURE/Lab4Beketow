@@ -72,6 +72,7 @@
             this.MinimizeBox = false;
             this.Name = "CorrectAuthor";
             this.Text = "CorrectAuthor";
+            this.Load += new System.EventHandler(this.CorrectAuthor_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
